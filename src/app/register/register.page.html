@@ -1,0 +1,88 @@
+<ion-content class="register-content" [fullscreen]="true">
+  <div class="register-wrapper">
+    <div class="register-card">
+      <!-- Logo -->
+      <div class="logo-section">
+        <div class="logo-circle">
+          <ion-icon name="person-add-outline"></ion-icon>
+        </div>
+        <h1 class="brand">
+          <span class="brand-light">Crear</span>
+          <span class="brand-accent">cuenta</span>
+        </h1>
+        <p class="tagline">Únete a Aurora Shop hoy</p>
+      </div>
+
+      <!-- Formulario -->
+      <div class="form-section">
+        <div class="input-group">
+          <label>Nombre completo</label>
+          <div class="input-wrapper">
+            <ion-icon name="person-outline" class="input-icon"></ion-icon>
+            <input
+              type="text"
+              [(ngModel)]="name"
+              placeholder="Juan Pérez"
+              autocomplete="name" />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Correo electrónico</label>
+          <div class="input-wrapper">
+            <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+            <input
+              type="email"
+              [(ngModel)]="email"
+              placeholder="ejemplo@correo.com"
+              autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Contraseña</label>
+          <div class="input-wrapper">
+            <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+            <input
+              type="password"
+              [(ngModel)]="password"
+              placeholder="Mínimo 4 caracteres"
+              autocomplete="new-password" />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Confirmar contraseña</label>
+          <div class="input-wrapper">
+            <ion-icon name="shield-checkmark-outline" class="input-icon"></ion-icon>
+            <input
+              type="password"
+              [(ngModel)]="confirmPassword"
+              placeholder="Repita la contraseña"
+              autocomplete="new-password" />
+          </div>
+        </div>
+
+        <div class="error-message" *ngIf="errorMessage">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <span>{{ errorMessage }}</span>
+        </div>
+
+        <button class="register-btn" (click)="onRegister()">
+          <span>Crear cuenta</span>
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </button>
+
+        <div class="divider">
+          <span>o</span>
+        </div>
+
+        <button class="login-btn" (click)="goToLogin()">
+          Ya tengo una cuenta
+        </button>
+      </div>
+    </div>
+
+    <p class="footer-text">© 2026 Aurora Shop. Todos los derechos reservados.</p>
+  </div>
+</ion-content>

@@ -1,0 +1,195 @@
+<ion-content class="checkout-content" [fullscreen]="true">
+  <div class="checkout-wrapper">
+
+    <!-- PANTALLA DE PROCESAMIENTO -->
+    <div class="state-screen" *ngIf="processing">
+      <div class="spinner-wrapper">
+        <div class="spinner"></div>
+      </div>
+      <h2>Procesando pago...</h2>
+      <p>Por favor no cierre esta ventana</p>
+    </div>
+
+    <!-- PANTALLA DE ÉXITO -->
+    <div class="state-screen" *ngIf="success && !processing">
+      <div class="success-icon">
+        <ion-icon name="checkmark-circle"></ion-icon>
+      </div>
+      <h2>¡Pago exitoso!</h2>
+      <p>Su pedido ha sido confirmado y está en camino.</p>
+      <div class="success-details">
+        <span>Total pagado</span>
+        <strong>${{ total }}</strong>
+      </div>
+      <button class="primary-btn" (click)="finish()">
+        Volver a la tienda
+      </button>
+    </div>
+
+    <!-- FORMULARIO DE PAGO -->
+    <div *ngIf="!processing && !success">
+      <!-- Header -->
+      <div class="checkout-header">
+        <button class="back-btn" (click)="goBack()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </button>
+        <h1>Finalizar compra</h1>
+      </div>
+
+      <!-- Resumen -->
+      <div class="total-banner">
+        <div class="total-info">
+          <span>Total a pagar</span>
+          <strong>${{ total }}</strong>
+        </div>
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+      </div>
+
+      <!-- Datos de envío -->
+      <div class="section">
+        <div class="section-title">
+          <ion-icon name="location-outline"></ion-icon>
+          <h2>Datos de envío</h2>
+        </div>
+
+        <div class="input-group">
+          <label>Nombre completo</label>
+          <div class="input-wrapper">
+            <ion-icon name="person-outline" class="input-icon"></ion-icon>
+            <input
+              type="text"
+              name="fullName"
+              [(ngModel)]="fullName"
+              placeholder="Juan Pérez"
+              autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Dirección</label>
+          <div class="input-wrapper">
+            <ion-icon name="location-outline" class="input-icon"></ion-icon>
+            <input
+              type="text"
+              name="address"
+              [(ngModel)]="address"
+              placeholder="Calle 123 #45-67"
+              autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-group">
+            <label>Ciudad</label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                name="city"
+                [(ngModel)]="city"
+                placeholder="Bogotá"
+                autocomplete="off" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Teléfono</label>
+            <div class="input-wrapper">
+              <input
+                type="tel"
+                name="phone"
+                [value]="phone"
+                (input)="onlyNumbers($event, 'phone', 10)"
+                placeholder="3001234567"
+                inputmode="numeric"
+                autocomplete="off" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Datos de pago -->
+      <div class="section">
+        <div class="section-title">
+          <ion-icon name="card-outline"></ion-icon>
+          <h2>Datos de pago</h2>
+        </div>
+
+        <div class="input-group">
+          <label>Número de tarjeta</label>
+          <div class="input-wrapper">
+            <ion-icon name="card-outline" class="input-icon"></ion-icon>
+            <input
+              type="text"
+              name="cardNumber"
+              [value]="cardNumber"
+              (input)="formatCardNumber($event)"
+              placeholder="1234 5678 9012 3456"
+              inputmode="numeric"
+              autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Nombre del titular</label>
+          <div class="input-wrapper">
+            <ion-icon name="person-outline" class="input-icon"></ion-icon>
+            <input
+              type="text"
+              name="cardName"
+              [(ngModel)]="cardName"
+              placeholder="Como aparece en la tarjeta"
+              autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-group">
+            <label>Vencimiento</label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                name="expiry"
+                [value]="expiry"
+                (input)="formatExpiry($event)"
+                placeholder="MM/AA"
+                inputmode="numeric"
+                autocomplete="off" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>CVV</label>
+            <div class="input-wrapper">
+              <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+              <input
+                type="password"
+                name="cvv"
+                [value]="cvv"
+                (input)="onlyNumbers($event, 'cvv', 4)"
+                placeholder="123"
+                inputmode="numeric"
+                autocomplete="off" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensaje de error -->
+      <div class="error-message" *ngIf="errorMessage">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <span>{{ errorMessage }}</span>
+      </div>
+
+      <!-- Botón pagar -->
+      <button class="primary-btn pay-btn" (click)="pay()">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        Pagar ${{ total }}
+      </button>
+
+      <p class="security-note">
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+        Pago simulado. No se realizará ningún cargo real.
+      </p>
+    </div>
+  </div>
+</ion-content>

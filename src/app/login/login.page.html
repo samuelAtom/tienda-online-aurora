@@ -1,0 +1,64 @@
+<ion-content class="login-content" [fullscreen]="true">
+  <div class="login-wrapper">
+    <div class="login-card">
+      <!-- Logo -->
+      <div class="logo-section">
+        <div class="logo-circle">
+          <ion-icon name="bag-handle-outline"></ion-icon>
+        </div>
+        <h1 class="brand">
+          <span class="brand-light">Aurora</span>
+          <span class="brand-accent">Shop</span>
+        </h1>
+        <p class="tagline">Bienvenido de vuelta</p>
+      </div>
+
+      <!-- Formulario -->
+      <div class="form-section">
+        <div class="input-group">
+          <label>Correo electrónico</label>
+          <div class="input-wrapper">
+            <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+            <input
+              type="email"
+              [(ngModel)]="email"
+              placeholder="ejemplo@correo.com"
+              autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Contraseña</label>
+          <div class="input-wrapper">
+            <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+            <input
+              type="password"
+              [(ngModel)]="password"
+              placeholder="Mínimo 4 caracteres"
+              autocomplete="current-password" />
+          </div>
+        </div>
+
+        <div class="error-message" *ngIf="errorMessage">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <span>{{ errorMessage }}</span>
+        </div>
+
+        <button class="login-btn" (click)="onLogin()">
+          <span>Iniciar sesión</span>
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </button>
+
+        <div class="divider">
+          <span>o</span>
+        </div>
+
+        <button class="register-btn" (click)="goToRegister()">
+          Crear una cuenta nueva
+        </button>
+      </div>
+    </div>
+
+    <p class="footer-text">© 2026 Aurora Shop. Todos los derechos reservados.</p>
+  </div>
+</ion-content>

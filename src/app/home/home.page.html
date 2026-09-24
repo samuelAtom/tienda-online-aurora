@@ -1,20 +1,54 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-title>
-      Blank
+      <span class="brand-name">Aurora</span>
+      <span class="brand-sub">Shop</span>
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToCart()" class="cart-button">
+  <ion-badge color="danger" *ngIf="cartCount > 0">{{ cartCount }}</ion-badge>
+  <ion-icon slot="end" name="cart-outline"></ion-icon>
+</ion-button>
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="home-container">
+    <!-- Encabezado de bienvenida -->
+    <div class="welcome-section">
+      <h1>Descubre algo especial</h1>
+      <p>Productos seleccionados para ti</p>
+    </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando productos...</p>
+    </div>
+
+    <!-- Productos -->
+    <div *ngIf="!loading" class="products-grid">
+      <div class="product-card" *ngFor="let product of products">
+        <div class="product-image-wrapper">
+          <img [src]="product.image" [alt]="product.name" />
+          <span class="product-category">{{ product.category }}</span>
+        </div>
+
+        <div class="product-info">
+          <h3>{{ product.name }}</h3>
+          <p class="product-description">{{ product.description }}</p>
+          <p class="product-price">${{ product.price }}</p>
+
+          <button class="add-button" (click)="addToCart(product)">
+            <ion-icon name="cart-outline"></ion-icon>
+            Agregar
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </ion-content>
